@@ -1,0 +1,33 @@
+<h4>Link Results for <%= link_to @site.url, @site.url, :target=>"_blank" %></h4>
+
+<script>   setInterval(function() {
+                  window.location.reload();
+                }, 4000);     </script>
+
+<table class="table table-hover">
+  <tr>
+    <th>Link</th><th>HTTP Response Code</th>
+  </tr>
+  <% if @links %>
+    
+    <% @links.each do |link| %>
+      <tr>
+             <td><%= link_to link.url.truncate(50), link.url, :target=>"_blank" %></td>
+           <% if link.http_response == nil%>
+       <td>
+        <%= link.http_response %></td>
+        <% else %>
+	       
+	        <% if link.http_response >= 400 %>
+	          <td style="color:red">
+	        <% else %>
+	          <td style="color:green">
+	        <% end %>
+	        <%= link.http_response %></td>
+
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
